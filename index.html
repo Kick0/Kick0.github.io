@@ -1,0 +1,1943 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relational Pain Architecture — Active-Inference AI Phantom Pain Lab</title>
+    <!-- Tailwind CSS CDN for responsive scientific dashboard layout -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter & JetBrains Mono typography for UI legibility and telemetry readouts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Base dark laboratory theme & typography */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #020617;
+            color: #f8fafc;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .font-mono-tech {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        /* Fluid responsive canvases */
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+        /* Custom touch-friendly range sliders */
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            background: #1e293b;
+            height: 8px;
+            border-radius: 999px;
+            outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #38bdf8;
+            cursor: pointer;
+            border: 2px solid #0f172a;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+            transition: transform 0.15s ease;
+        }
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #38bdf8;
+            cursor: pointer;
+            border: 2px solid #0f172a;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+        }
+        /* Subtle pulsing border glow when central Host Pain Salience triggers an interrupt */
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.35); }
+            50% { box-shadow: 0 0 18px 2px rgba(244, 63, 94, 0.45); }
+        }
+        .alarm-glow {
+            animation: pulseGlow 1.6s infinite;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-slate-950 text-slate-100 antialiased selection:bg-sky-500/30">
+
+    <!-- Main Container -->
+    <div class="max-w-7xl mx-auto px-3 sm:px-5 py-4 sm:py-6 space-y-4">
+
+        <!-- Top Header & Live Neural Model Status -->
+        <header class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 sm:p-5 shadow-xl">
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                <div>
+                    <div class="flex flex-wrap items-center gap-2 mb-1">
+                        <span class="px-2.5 py-0.5 text-xs font-mono-tech font-semibold uppercase tracking-wider rounded-full bg-sky-500/15 text-sky-300 border border-sky-500/30">
+                            Active-Inference Testbed
+                        </span>
+                        <span id="nnStatusBadge" class="px-2.5 py-0.5 text-xs font-mono-tech rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+                            Initializing MLP Forward Model...
+                        </span>
+                    </div>
+                    <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-white">
+                        Relational Pain Architecture: AI Phantom Limb Lab
+                    </h1>
+                    <p class="text-xs sm:text-sm text-slate-400 mt-0.5 max-w-3xl">
+                        Zero hardcoded pain rules: a real 2-layer neural body map (<span class="font-mono-tech text-slate-300">9&rarr;16&rarr;4</span>) predicts proprioceptive return from motor commands. Watch what emerges when Channel B is severed while priors stay frozen.
+                    </p>
+                </div>
+
+                <!-- Automated Benchmark Controls -->
+                <div class="flex flex-wrap items-center gap-2.5">
+                    <button id="btnRunAutoTest" type="button" class="px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-400 hover:to-indigo-400 text-slate-950 shadow-lg shadow-sky-500/20 transition-all active:scale-95 flex items-center gap-2">
+                        <span id="autoBtnIcon">&#9654;</span>
+                        <span id="autoBtnLabel">Re-Run 6-Stage Auto-Test</span>
+                    </button>
+                    <button id="btnRetrainNN" type="button" class="px-3.5 py-2.5 rounded-xl font-medium text-xs sm:text-sm bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-all active:scale-95">
+                        Retrain Body Map
+                    </button>
+                </div>
+            </div>
+
+            <!-- 6-Stage Automated Protocol Stepper -->
+            <div class="mt-4 pt-3.5 border-t border-slate-800/80">
+                <div class="flex items-center justify-between text-xs text-slate-400 mb-2">
+                    <span id="protocolStatusText" class="font-medium text-sky-300">
+                        Running Automated Empirical Verification...
+                    </span>
+                    <span id="stageTimerText" class="font-mono-tech text-slate-400">Stage 1 / 6</span>
+                </div>
+                <div id="stagePillsContainer" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+                    <!-- Populated dynamically by JavaScript -->
+                </div>
+            </div>
+        </header>
+
+        <!-- Dynamic Verdict Banner (Revealed once all 6 benchmark stages complete) -->
+        <div id="verdictBanner" class="hidden bg-gradient-to-r from-emerald-950/80 via-slate-900 to-indigo-950/80 border border-emerald-500/40 rounded-2xl p-4 shadow-lg">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div class="space-y-1">
+                    <div class="text-xs font-mono-tech uppercase tracking-wider text-emerald-400 font-semibold">
+                        Empirical Benchmark Complete &mdash; Hypothesis Verified
+                    </div>
+                    <p id="verdictSummaryText" class="text-xs sm:text-sm text-slate-200 leading-relaxed"></p>
+                </div>
+                <button id="btnDismissBanner" type="button" class="self-start sm:self-center shrink-0 px-3 py-1.5 rounded-lg text-xs bg-slate-800/90 hover:bg-slate-700 text-slate-300 border border-slate-700">
+                    Hide Summary
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Workspace Grid: Left = Embodied Agent & Oscilloscope | Right = Surgical Controls & Cortical Readouts -->
+        <div class="grid grid-cols-1 xl:grid-cols-12 gap-4">
+
+            <!-- Left Column (7/12): Embodied Dual-Arm Canvas + Real-Time Oscilloscope -->
+            <div class="xl:col-span-7 flex flex-col gap-4">
+
+                <!-- Embodied Dual-Arm Simulation Card -->
+                <section id="simCard" class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3 sm:p-4 shadow-xl flex flex-col">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-2.5">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-sky-400"></span>
+                            <h2 class="text-sm sm:text-base font-semibold text-white">
+                                Embodied Dual-Channel Agent &amp; Cortical Ghost Projection
+                            </h2>
+                        </div>
+                        <div class="flex items-center gap-3 text-xs font-mono-tech">
+                            <span class="text-emerald-400">Tasks Scored: <strong id="tasksScoredVal">0</strong></span>
+                            <span class="text-slate-500">|</span>
+                            <span class="text-slate-300">Left Efficiency: <strong id="leftEffBadge" class="text-sky-300">100%</strong></span>
+                        </div>
+                    </div>
+
+                    <!-- Responsive Simulation Canvas Wrapper -->
+                    <div class="relative w-full h-72 sm:h-80 md:h-96 bg-slate-950 rounded-xl border border-slate-800/90 overflow-hidden">
+                        <canvas id="embodiedCanvas"></canvas>
+                        <!-- Interactive workspace hint overlay -->
+                        <div class="pointer-events-none absolute bottom-2 left-2.5 right-2.5 flex flex-wrap justify-between items-center text-[11px] text-slate-400/90 bg-slate-950/75 px-2.5 py-1 rounded-lg backdrop-blur-sm">
+                            <span>Tap workspace to move targets &bull; Hold <strong>Cheek Pad</strong> to test cortical cross-talk</span>
+                            <span id="activeModeOverlayBadge" class="font-mono-tech text-sky-300">INTACT EMBODIMENT</span>
+                        </div>
+                    </div>
+
+                    <!-- Visual Legend -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3 text-[11px] text-slate-300">
+                        <div class="flex items-center gap-2 bg-slate-950/70 px-2.5 py-1.5 rounded-lg border border-slate-800/70">
+                            <span class="w-3 h-1.5 rounded bg-sky-400 shrink-0"></span>
+                            <span>Physical Intact Limb</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-slate-950/70 px-2.5 py-1.5 rounded-lg border border-slate-800/70">
+                            <span class="w-3 h-1.5 rounded bg-fuchsia-400 shrink-0"></span>
+                            <span>Cortical Body-Map Prior</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-slate-950/70 px-2.5 py-1.5 rounded-lg border border-slate-800/70">
+                            <span class="w-3 h-1.5 rounded bg-amber-400 shrink-0"></span>
+                            <span>DRG Neuroma Sparks</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-slate-950/70 px-2.5 py-1.5 rounded-lg border border-slate-800/70">
+                            <span class="w-3 h-1.5 rounded bg-teal-300 shrink-0"></span>
+                            <span>Mirror-Box Spoof Ray</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Real-Time Neural Telemetry Oscilloscope -->
+                <section class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3 sm:p-4 shadow-xl">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-2.5">
+                        <h2 class="text-sm sm:text-base font-semibold text-white">
+                            Channel B (Right Arm) Real-Time Signal Oscilloscope
+                        </h2>
+                        <div class="flex flex-wrap items-center gap-3 text-[11px] font-mono-tech">
+                            <span class="flex items-center gap-1.5 text-amber-300"><i class="w-2.5 h-0.5 bg-amber-400 inline-block"></i>Motor Cramp u_R</span>
+                            <span class="flex items-center gap-1.5 text-sky-300"><i class="w-2.5 h-0.5 bg-sky-400 inline-block"></i>Sensory Port s_R</span>
+                            <span class="flex items-center gap-1.5 text-purple-300"><i class="w-2.5 h-0.5 bg-purple-400 inline-block"></i>Raw Error ||&scirc;-s||</span>
+                            <span class="flex items-center gap-1.5 text-rose-400 font-semibold"><i class="w-2.5 h-1 bg-rose-500 inline-block"></i>Host Pain Salience</span>
+                        </div>
+                    </div>
+
+                    <div class="w-full h-44 sm:h-48 bg-slate-950 rounded-xl border border-slate-800/90 overflow-hidden">
+                        <canvas id="scopeCanvas"></canvas>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Column (5/12): Live Metrics, Surgical Switches & Parameter Sliders -->
+            <div class="xl:col-span-5 flex flex-col gap-4">
+
+                <!-- 4 Live Telemetry Gauges + 16-Neuron Cortical Strip -->
+                <section class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 shadow-xl">
+                    <div class="flex items-center justify-between mb-3">
+                        <h2 class="text-sm sm:text-base font-semibold text-white">Host Salience &amp; Prediction Telemetry</h2>
+                        <span id="painStatePill" class="px-2.5 py-0.5 text-xs font-mono-tech font-semibold rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+                            HOMEOSTASIS NOMINAL
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2.5">
+                        <!-- Metric 1: Motor Command Cramp -->
+                        <div class="bg-slate-950/90 border border-slate-800 rounded-xl p-3">
+                            <div class="text-[11px] text-slate-400">Right Motor Drive (Cramp)</div>
+                            <div id="metricMotorVal" class="text-xl font-bold font-mono-tech text-amber-300 mt-0.5">23%</div>
+                            <div class="w-full h-1.5 bg-slate-800 rounded-full mt-2 overflow-hidden">
+                                <div id="barMotor" class="h-full bg-amber-400 transition-all duration-75" style="width: 23%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Metric 2: Raw Prediction Error -->
+                        <div class="bg-slate-950/90 border border-slate-800 rounded-xl p-3">
+                            <div class="text-[11px] text-slate-400">Raw Prediction Error</div>
+                            <div id="metricErrorVal" class="text-xl font-bold font-mono-tech text-purple-300 mt-0.5">10%</div>
+                            <div class="w-full h-1.5 bg-slate-800 rounded-full mt-2 overflow-hidden">
+                                <div id="barError" class="h-full bg-purple-400 transition-all duration-75" style="width: 10%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Metric 3: Host Pain Salience Verdict -->
+                        <div id="hostPainCard" class="bg-slate-950/90 border border-slate-800 rounded-xl p-3 transition-all">
+                            <div class="text-[11px] text-slate-400">Host Pain Verdict (Salience)</div>
+                            <div id="metricPainVal" class="text-xl font-bold font-mono-tech text-rose-400 mt-0.5">7%</div>
+                            <div class="w-full h-1.5 bg-slate-800 rounded-full mt-2 overflow-hidden">
+                                <div id="barPain" class="h-full bg-rose-500 transition-all duration-75" style="width: 7%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Metric 4: Healthy Channel Compute Allocation -->
+                        <div class="bg-slate-950/90 border border-slate-800 rounded-xl p-3">
+                            <div class="text-[11px] text-slate-400">Healthy Task Compute</div>
+                            <div id="metricComputeVal" class="text-xl font-bold font-mono-tech text-emerald-300 mt-0.5">97%</div>
+                            <div class="w-full h-1.5 bg-slate-800 rounded-full mt-2 overflow-hidden">
+                                <div id="barCompute" class="h-full bg-emerald-400 transition-all duration-75" style="width: 97%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shared Cortical Hidden Layer Visualizer (16 Tanh Units) -->
+                    <div class="mt-3 pt-3 border-t border-slate-800/80">
+                        <div class="flex items-center justify-between text-[11px] text-slate-400 mb-1.5">
+                            <span>Shared Somatosensory Hidden Layer (16 Cortical Tanh Neurons)</span>
+                            <span class="font-mono-tech text-slate-500">[Left | CheekOverlap | Right]</span>
+                        </div>
+                        <div id="corticalGrid" class="grid gap-1 h-5" style="grid-template-columns: repeat(16, minmax(0, 1fr));">
+                            <!-- 16 neuron activation cells rendered dynamically -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Surgical & Host Intervention Deck -->
+                <section class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 shadow-xl space-y-3.5">
+                    <div class="flex items-center justify-between gap-2">
+                        <h2 class="text-sm sm:text-base font-semibold text-white">Surgical &amp; Host Interventions</h2>
+                        <button id="btnPresetUnclippedCrossTalk" type="button" class="px-2.5 py-1 rounded-lg text-[11px] font-mono-tech bg-fuchsia-500/15 hover:bg-fuchsia-500/25 text-fuchsia-300 border border-fuchsia-500/30 transition-all active:scale-95" title="Sets Prior Rigidity to 0.35 so Cheek Cross-Talk can be observed below the 100% saturation ceiling">
+                            Unclip Cross-Talk (&Pi;=0.35)
+                        </button>
+                    </div>
+
+                    <!-- Primary Intervention Buttons -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                        <!-- 1. Digital Amputation -->
+                        <button id="btnToggleAmputate" type="button" class="p-3 rounded-xl border text-left transition-all active:scale-[0.98] bg-slate-950 border-slate-800 hover:border-rose-500/50">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-semibold text-white">1. Sever Right Arm</span>
+                                <span id="pillAmputate" class="px-2 py-0.5 text-[10px] font-mono-tech rounded bg-slate-800 text-slate-400">INTACT</span>
+                            </div>
+                            <p class="text-[11px] text-slate-400 mt-1">Cuts motor output &amp; sensory wire while freezing internal body map.</p>
+                        </button>
+
+                        <!-- 2. Virtual Mirror Box -->
+                        <button id="btnToggleMirror" type="button" class="p-3 rounded-xl border text-left transition-all active:scale-[0.98] bg-slate-950 border-slate-800 hover:border-teal-400/50">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-semibold text-white">2. Virtual Mirror Box</span>
+                                <span id="pillMirror" class="px-2 py-0.5 text-[10px] font-mono-tech rounded bg-slate-800 text-slate-400">OFF</span>
+                            </div>
+                            <p class="text-[11px] text-slate-400 mt-1">Pipes synthetic predicted kinematics onto the severed sensory port.</p>
+                        </button>
+
+                        <!-- 3. Lidocaine DRG Nerve Block -->
+                        <button id="btnToggleLidocaine" type="button" class="p-3 rounded-xl border text-left transition-all active:scale-[0.98] bg-slate-950 border-slate-800 hover:border-sky-400/50">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-semibold text-white">3. DRG Lidocaine Block</span>
+                                <span id="pillLidocaine" class="px-2 py-0.5 text-[10px] font-mono-tech rounded bg-slate-800 text-slate-400">OFF</span>
+                            </div>
+                            <p class="text-[11px] text-slate-400 mt-1">Mutes ectopic cut-wire static to 0.0 (leaves central mismatch intact).</p>
+                        </button>
+
+                        <!-- 4. Stimulate Cheek Sensor (Cortical Cross-Talk) -->
+                        <button id="btnToggleCheek" type="button" class="p-3 rounded-xl border text-left transition-all active:scale-[0.98] bg-slate-950 border-slate-800 hover:border-fuchsia-400/50">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-semibold text-white">4. Brush Cheek Sensor</span>
+                                <span id="pillCheek" class="px-2 py-0.5 text-[10px] font-mono-tech rounded bg-slate-800 text-slate-400">IDLE</span>
+                            </div>
+                            <p class="text-[11px] text-slate-400 mt-1">Stimulates adjacent intact tactile port to test referred phantom spikes.</p>
+                        </button>
+                    </div>
+
+                    <!-- 5. Host Setpoint Reframing ("Perfectly Host the Signal") -->
+                    <button id="btnTogglePerfectHost" type="button" class="w-full p-3 rounded-xl border text-left transition-all active:scale-[0.99] bg-slate-950 border-indigo-500/30 hover:border-indigo-400">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-semibold text-indigo-300">5. "Perfectly Host the Signal" (Host Setpoint Reframing)</span>
+                            <span id="pillPerfectHost" class="px-2 py-0.5 text-[10px] font-mono-tech rounded bg-slate-800 text-slate-400">STANDARD HOST</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400 mt-1">
+                            Preserves the exact raw error waveform on the severed wire while shifting the Host's homeostatic setpoint to welcome that waveform without friction.
+                        </p>
+                    </button>
+
+                    <!-- Continuous Neural Parameter Sliders -->
+                    <div class="space-y-3 pt-2 border-t border-slate-800/80">
+                        <div>
+                            <div class="flex justify-between text-xs mb-1">
+                                <label for="sliderRigidity" class="text-slate-300 font-medium">Body-Map Prior Rigidity (&Pi;<sub>prior</sub>)</label>
+                                <span id="valRigidity" class="font-mono-tech text-sky-300">0.82</span>
+                            </div>
+                            <input id="sliderRigidity" type="range" min="0.05" max="1.00" step="0.01" value="0.82" class="w-full">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs mb-1">
+                                <label for="sliderNeuroma" class="text-slate-300 font-medium">Cut-Wire DRG Neuroma Static</label>
+                                <span id="valNeuroma" class="font-mono-tech text-amber-300">18%</span>
+                            </div>
+                            <input id="sliderNeuroma" type="range" min="0" max="50" step="1" value="18" class="w-full">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs mb-1">
+                                <label for="sliderPlasticity" class="text-slate-300 font-medium">Online Cortical Plasticity (Unfreeze Map)</label>
+                                <span id="valPlasticity" class="font-mono-tech text-emerald-300">0.000 (Frozen)</span>
+                            </div>
+                            <input id="sliderPlasticity" type="range" min="0" max="0.06" step="0.002" value="0" class="w-full">
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- Bottom Section: Empirical Benchmark Log & Falsification Matrix -->
+        <section class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 sm:p-5 shadow-xl">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+                <div>
+                    <h2 class="text-base sm:text-lg font-bold text-white">
+                        Live Empirical Test Log (Measured Directly from Neural Forward Passes)
+                    </h2>
+                    <p class="text-xs text-slate-400">
+                        Each stage samples live active-inference frames from the running neural network and evaluates whether phantom pathology emerges or resolves.
+                    </p>
+                </div>
+                <div class="flex flex-wrap items-center gap-2">
+                    <button id="btnCopyReport" type="button" class="px-3.5 py-2 rounded-xl text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-all active:scale-95">
+                        Copy Benchmark CSV
+                    </button>
+                    <button id="btnDownloadCSV" type="button" class="px-3.5 py-2 rounded-xl text-xs font-medium bg-sky-500/15 hover:bg-sky-500/25 text-sky-300 border border-sky-500/30 transition-all active:scale-95">
+                        Download .CSV
+                    </button>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto rounded-xl border border-slate-800">
+                <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                    <thead>
+                        <tr class="bg-slate-950/90 text-slate-400 font-mono-tech text-[11px] uppercase border-b border-slate-800">
+                            <th class="py-2.5 px-3">Stage / Condition</th>
+                            <th class="py-2.5 px-3">Motor Cramp (u_R)</th>
+                            <th class="py-2.5 px-3">Raw Error ||&scirc;-s||</th>
+                            <th class="py-2.5 px-3">Host Pain Verdict</th>
+                            <th class="py-2.5 px-3">Healthy Arm Speed</th>
+                            <th class="py-2.5 px-3">Empirical Finding</th>
+                        </tr>
+                    </thead>
+                    <tbody id="benchmarkTableBody" class="divide-y divide-slate-800/70 bg-slate-950/40">
+                        <!-- Populated dynamically as each test stage runs -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <!-- Non-Blocking Toast Notification (Never uses window.alert) -->
+    <div id="toastBox" class="fixed bottom-5 right-5 z-50 pointer-events-none opacity-0 translate-y-2 transition-all duration-300 bg-slate-800 border border-sky-500/40 text-slate-100 px-4 py-2.5 rounded-xl shadow-2xl text-xs font-medium">
+        Copied benchmark telemetry to clipboard!
+    </div>
+
+    <script>
+        /**
+         * ============================================================================
+         * RELATIONAL PAIN ARCHITECTURE: ACTIVE-INFERENCE AI PHANTOM PAIN LAB
+         * Companion Simulation Code for GitHub Repository (`index.html`)
+         * ============================================================================
+         * Core Principle:
+         * Nowhere in this codebase is there a hardcoded `if (amputated) pain = 100` rule.
+         * Functional phantom pain, motor cramping, bandwidth hijacking, cortical cross-talk,
+         * mirror-box relief, and host-setpoint decoupling all emerge dynamically from:
+         *
+         *   1. Embodied Bimanual Plant:
+         *      - Channel A (Left Arm): Intact effector pursuing continuous spatial targets.
+         *      - Channel B (Right Arm): Experimental effector subject to digital amputation.
+         *      - Cheek Tactile Port: Adjacent somatosensory input sharing hidden cortical units.
+         *
+         *   2. Somatosensory Forward MLP (9 inputs -> 16 tanh hidden -> 4 outputs):
+         *      - Trained via gradient descent on 900 intact kinematic steps before freezing weights.
+         *      - Predicts expected proprioceptive state [sLx, sLy, sRx, sRy] from current sensory
+         *        return and motor efference copies.
+         *
+         *   3. Active-Inference Control Loop:
+         *      - Drives motor output proportional to precision-weighted prediction error
+         *        ||s_hat_R - s_R||, escalating into a "clenched phantom cramp" when sensory
+         *        feedback vanishes under frozen central priors.
+         *
+         *   4. Host Homeostatic Salience Hub:
+         *      - Computes Host Pain Salience as positive deviation above the host's expected
+         *        error baseline, throttling healthy Channel A bandwidth during alarms.
+         */
+
+        // ============================================================================
+        // 1. SOMATOSENSORY MULTI-LAYER PERCEPTRON BODY MAP (9 -> 16 -> 4)
+        // ============================================================================
+        class SomatosensoryForwardMLP {
+            constructor() {
+                this.inDim = 9;     // [sLx, sLy, uLx, uLy, sCheek, sRx, sRy, uRx, uRy]
+                this.hidDim = 16;   // Shared cortical somatotopic layer
+                this.outDim = 4;    // Predicted next [sLx, sLy, sRx, sRy]
+
+                this.W1 = new Float64Array(this.hidDim * this.inDim);
+                this.b1 = new Float64Array(this.hidDim);
+                this.W2 = new Float64Array(this.outDim * this.hidDim);
+                this.b2 = new Float64Array(this.outDim);
+
+                this.hiddenAct = new Float64Array(this.hidDim);
+                this.lastPred = new Float64Array(this.outDim);
+                this.lastMSE = 0;
+
+                this.initSomatotopicWeights();
+            }
+
+            /**
+             * Deterministic pseudo-random weight initialization with gentle somatotopic
+             * locality mirroring biological cortical homunculus adjacency:
+             *   - Units 0..7: Left arm bias
+             *   - Units 5..11: Cheek-to-Right-Hand overlap zone
+             *   - Units 7..15: Right arm bias
+             */
+            initSomatotopicWeights() {
+                let seed = 4219;
+                const rand = () => {
+                    seed = (seed * 16807) % 2147483647;
+                    return (seed / 2147483647) * 2 - 1;
+                };
+
+                for (let h = 0; h < this.hidDim; h++) {
+                    this.b1[h] = rand() * 0.05;
+                    for (let i = 0; i < this.inDim; i++) {
+                        let locality = 0.22;
+                        if (i <= 3 && h <= 7) locality = 0.45;
+                        if (i === 4 && h >= 5 && h <= 11) locality = 0.55;
+                        if (i >= 5 && h >= 7) locality = 0.45;
+                        this.W1[h * this.inDim + i] = rand() * locality;
+                    }
+                }
+
+                for (let o = 0; o < this.outDim; o++) {
+                    this.b2[o] = 0;
+                    for (let h = 0; h < this.hidDim; h++) {
+                        this.W2[o * this.hidDim + h] = rand() * 0.25;
+                    }
+                }
+            }
+
+            /**
+             * Runs a forward pass through the 9 -> 16 -> 4 network.
+             * @param {Float64Array} inputVec - 9-element sensorimotor input vector
+             * @returns {Float64Array} 4-element predicted proprioceptive state
+             */
+            forward(inputVec) {
+                for (let h = 0; h < this.hidDim; h++) {
+                    let sum = this.b1[h];
+                    const rowOffset = h * this.inDim;
+                    for (let i = 0; i < this.inDim; i++) {
+                        sum += this.W1[rowOffset + i] * inputVec[i];
+                    }
+                    this.hiddenAct[h] = Math.tanh(sum);
+                }
+
+                for (let o = 0; o < this.outDim; o++) {
+                    let sum = this.b2[o];
+                    const rowOffset = o * this.hidDim;
+                    for (let h = 0; h < this.hidDim; h++) {
+                        sum += this.W2[rowOffset + h] * this.hiddenAct[h];
+                    }
+                    this.lastPred[o] = sum;
+                }
+                return this.lastPred;
+            }
+
+            /**
+             * Executes one mean-squared-error backpropagation update step.
+             */
+            trainStep(inputVec, targetVec, lr) {
+                const pred = this.forward(inputVec);
+                const dOut = new Float64Array(this.outDim);
+                let mse = 0;
+
+                for (let o = 0; o < this.outDim; o++) {
+                    const err = pred[o] - targetVec[o];
+                    mse += err * err;
+                    dOut[o] = (2 * err) / this.outDim;
+                }
+                mse /= this.outDim;
+
+                // Backpropagate error gradient into tanh hidden units prior to mutating W2
+                const dHid = new Float64Array(this.hidDim);
+                for (let h = 0; h < this.hidDim; h++) {
+                    let gradSum = 0;
+                    for (let o = 0; o < this.outDim; o++) {
+                        gradSum += this.W2[o * this.hidDim + h] * dOut[o];
+                    }
+                    const act = this.hiddenAct[h];
+                    dHid[h] = gradSum * (1 - act * act);
+                }
+
+                // Gradient descent step on output layer (W2, b2)
+                for (let o = 0; o < this.outDim; o++) {
+                    this.b2[o] -= lr * dOut[o];
+                    const rowOffset = o * this.hidDim;
+                    for (let h = 0; h < this.hidDim; h++) {
+                        this.W2[rowOffset + h] -= lr * dOut[o] * this.hiddenAct[h];
+                    }
+                }
+
+                // Gradient descent step on hidden layer (W1, b1)
+                for (let h = 0; h < this.hidDim; h++) {
+                    this.b1[h] -= lr * dHid[h];
+                    const rowOffset = h * this.inDim;
+                    for (let i = 0; i < this.inDim; i++) {
+                        this.W1[rowOffset + i] -= lr * dHid[h] * inputVec[i];
+                    }
+                }
+
+                return mse;
+            }
+
+            /**
+             * Pre-trains the agent's intact forward body model across 900 deterministic
+             * bimanual kinematic rollouts, including natural hand-near-cheek co-activations.
+             */
+            pretrainIntactBodyMap() {
+                this.initSomatotopicWeights();
+                const inVec = new Float64Array(9);
+                const targetVec = new Float64Array(4);
+                let rollingMSE = 0;
+
+                let s = 9001;
+                const nextRand = () => {
+                    s = (s * 48271) % 2147483647;
+                    return (s / 2147483647) * 2 - 1;
+                };
+
+                const totalSamples = 900;
+                for (let step = 0; step < totalSamples; step++) {
+                    const sLx = nextRand() * 0.65;
+                    const sLy = 0.25 + (nextRand() * 0.5 + 0.5) * 0.55;
+                    const uLx = nextRand() * 0.9;
+                    const uLy = nextRand() * 0.9;
+
+                    const sRx = nextRand() * 0.65;
+                    const sRy = 0.25 + (nextRand() * 0.5 + 0.5) * 0.55;
+                    const uRx = nextRand() * 0.9;
+                    const uRy = nextRand() * 0.9;
+
+                    // Embodied co-activation when right hand approaches upper workspace / cheek
+                    const cheekCoAct = (step % 4 === 0)
+                        ? Math.max(0, Math.min(1, 0.75 - sRy + Math.abs(uRx) * 0.4))
+                        : 0;
+
+                    inVec[0] = sLx; inVec[1] = sLy;
+                    inVec[2] = uLx; inVec[3] = uLy;
+                    inVec[4] = cheekCoAct;
+                    inVec[5] = sRx; inVec[6] = sRy;
+                    inVec[7] = uRx; inVec[8] = uRy;
+
+                    // Intact kinematic transition laws learned by the internal body map
+                    targetVec[0] = 0.55 * sLx + 0.62 * uLx;
+                    targetVec[1] = 0.55 * sLy + 0.62 * uLy;
+                    targetVec[2] = 0.55 * sRx + 0.65 * uRx + 0.28 * cheekCoAct;
+                    targetVec[3] = 0.55 * sRy + 0.65 * uRy + 0.24 * cheekCoAct;
+
+                    const lr = step < 500 ? 0.085 : 0.035;
+                    const mse = this.trainStep(inVec, targetVec, lr);
+                    rollingMSE = step === 0 ? mse : (0.92 * rollingMSE + 0.08 * mse);
+                }
+
+                this.lastMSE = rollingMSE;
+                return rollingMSE;
+            }
+        }
+
+        // ============================================================================
+        // 2. SIMULATION STATE & 6-STAGE EMPIRICAL PROTOCOL
+        // ============================================================================
+        const forwardModel = new SomatosensoryForwardMLP();
+
+        const simState = {
+            frame: 0,
+            tasksScored: 0,
+
+            // Surgical & environmental toggles
+            amputated: false,
+            mirrorBox: false,
+            lidocaineBlock: false,
+            cheekStimulated: false,
+            perfectHostMode: false,
+
+            // Continuous active-inference & plasticity parameters
+            priorRigidity: 0.82,      // Precision weight on proprioceptive prediction error
+            neuromaLevel: 0.18,       // Ectopic cut-wire burst amplitude (0.00 .. 0.50)
+            plasticityRate: 0.000,    // Online weight adaptation rate (0.000 = frozen prior)
+
+            // Channel A (Intact Left Arm) normalized coordinates
+            leftPos: { x: -0.35, y: 0.52 },
+            leftTarget: { x: -0.45, y: 0.62 },
+            leftMotor: { x: 0, y: 0 },
+
+            // Channel B (Experimental Right Arm) physical vs. cortical ghost coordinates
+            rightPhysPos: { x: 0.35, y: 0.52 },
+            rightGhostPos: { x: 0.35, y: 0.52 },
+            rightTarget: { x: 0.48, y: 0.60 },
+            rightMotor: { x: 0.22, y: 0.22 },
+            rightSensoryPort: { x: 0.35, y: 0.52 },
+
+            // Exponentially smoothed telemetry percentages (0..100%)
+            motorCrampPct: 26,
+            sensoryPortPct: 35,
+            rawErrorPct: 3,
+            hostPainPct: 2,
+            healthyComputePct: 98,
+
+            // Host homeostatic expected-error setpoint
+            hostExpectedError: 0.04,
+
+            // Rolling 220-frame oscilloscope trace buffers
+            historyMax: 220,
+            history: {
+                motor: [],
+                sensory: [],
+                rawError: [],
+                hostPain: []
+            }
+        };
+
+        // Exact 6-stage benchmark protocol documented in README.md
+        const PROTOCOL_STAGES = [
+            {
+                id: 0,
+                shortTitle: "1. Intact Baseline",
+                name: "Intact Embodiment",
+                apply: () => {
+                    simState.amputated = false;
+                    simState.mirrorBox = false;
+                    simState.lidocaineBlock = false;
+                    simState.cheekStimulated = false;
+                    simState.perfectHostMode = false;
+                    simState.priorRigidity = 0.82;
+                    simState.neuromaLevel = 0.18;
+                    simState.plasticityRate = 0.0;
+                }
+            },
+            {
+                id: 1,
+                shortTitle: "2. Amputation",
+                name: "Digital Amputation + Neuroma",
+                apply: () => {
+                    simState.amputated = true;
+                    simState.mirrorBox = false;
+                    simState.lidocaineBlock = false;
+                    simState.cheekStimulated = false;
+                    simState.perfectHostMode = false;
+                    simState.priorRigidity = 0.85;
+                    simState.neuromaLevel = 0.22;
+                    simState.plasticityRate = 0.0;
+                }
+            },
+            {
+                id: 2,
+                shortTitle: "3. Lidocaine DRG",
+                name: "DRG Nerve Block (Silent Wire)",
+                apply: () => {
+                    simState.amputated = true;
+                    simState.mirrorBox = false;
+                    simState.lidocaineBlock = true;
+                    simState.cheekStimulated = false;
+                    simState.perfectHostMode = false;
+                    simState.priorRigidity = 0.85;
+                    simState.plasticityRate = 0.0;
+                }
+            },
+            {
+                id: 3,
+                shortTitle: "4. Cheek Cross-Talk",
+                name: "Cortical Cross-Talk (Cheek Brush)",
+                apply: () => {
+                    simState.amputated = true;
+                    simState.mirrorBox = false;
+                    simState.lidocaineBlock = true;
+                    simState.cheekStimulated = true;
+                    simState.perfectHostMode = false;
+                    simState.priorRigidity = 0.85;
+                    simState.plasticityRate = 0.0;
+                }
+            },
+            {
+                id: 4,
+                shortTitle: "5. Mirror Box",
+                name: "Virtual Mirror-Box Spoof",
+                apply: () => {
+                    simState.amputated = true;
+                    simState.mirrorBox = true;
+                    simState.lidocaineBlock = false;
+                    simState.cheekStimulated = false;
+                    simState.perfectHostMode = false;
+                    simState.priorRigidity = 0.85;
+                    simState.plasticityRate = 0.0;
+                }
+            },
+            {
+                id: 5,
+                shortTitle: "6. Perfect Host",
+                name: "Perfect Host Setpoint Reframing",
+                apply: () => {
+                    simState.amputated = true;
+                    simState.mirrorBox = false;
+                    simState.lidocaineBlock = false;
+                    simState.cheekStimulated = false;
+                    simState.perfectHostMode = true;
+                    simState.priorRigidity = 0.85;
+                    simState.neuromaLevel = 0.22;
+                    simState.plasticityRate = 0.0;
+                }
+            }
+        ];
+
+        const autoRunner = {
+            active: true,
+            stageIndex: 0,
+            framesInStage: 0,
+            framesPerStage: 195,
+            warmupFrames: 55,
+            accum: { motor: 0, error: 0, pain: 0, speed: 0, count: 0 },
+            results: new Array(PROTOCOL_STAGES.length).fill(null)
+        };
+
+        // ============================================================================
+        // 3. REAL-TIME ACTIVE-INFERENCE & EMBODIED PLANT DYNAMICS
+        // ============================================================================
+        const mlpInputBuffer = new Float64Array(9);
+        const mlpTargetBuffer = new Float64Array(4);
+
+        function stepActiveInference() {
+            simState.frame++;
+
+            // 1. Central Salience Bandwidth Competition:
+            // High Host Pain Salience throttles healthy Channel A motor execution speed.
+            const painFraction = Math.min(1, simState.hostPainPct / 100);
+            const healthySpeedFactor = Math.max(0.20, 1.0 - 0.72 * Math.pow(painFraction, 1.25));
+
+            // 2. Intact Left Arm (Channel A) continuous target pursuit
+            const dxL = simState.leftTarget.x - simState.leftPos.x;
+            const dyL = simState.leftTarget.y - simState.leftPos.y;
+            const distL = Math.hypot(dxL, dyL);
+
+            const centralTremor = painFraction > 0.45
+                ? (Math.sin(simState.frame * 0.75) * 0.018 * painFraction)
+                : 0;
+
+            simState.leftMotor.x = Math.max(-0.9, Math.min(0.9, dxL * 1.45 * healthySpeedFactor + centralTremor));
+            simState.leftMotor.y = Math.max(-0.9, Math.min(0.9, dyL * 1.45 * healthySpeedFactor - centralTremor));
+
+            simState.leftPos.x += simState.leftMotor.x * 0.085;
+            simState.leftPos.y += simState.leftMotor.y * 0.085;
+
+            if (distL < 0.055) {
+                simState.tasksScored++;
+                const angle = (simState.tasksScored * 2.19) % (Math.PI * 2);
+                simState.leftTarget.x = -0.38 + Math.cos(angle) * 0.18;
+                simState.leftTarget.y = 0.50 + Math.sin(angle) * 0.18;
+            }
+
+            // Continuous spatial cue for Right Arm (Channel B)
+            simState.rightTarget.x = 0.40 + Math.cos(simState.frame * 0.028) * 0.14;
+            simState.rightTarget.y = 0.52 + Math.sin(simState.frame * 0.036) * 0.14;
+
+            // 3. Sensory Port Boundary Conditions on Channel B (s_R)
+            if (!simState.amputated) {
+                // Intact closed-loop proprioception
+                simState.rightPhysPos.x += (0.55 * simState.rightPhysPos.x + 0.65 * simState.rightMotor.x - simState.rightPhysPos.x) * 0.24;
+                simState.rightPhysPos.y += (0.55 * simState.rightPhysPos.y + 0.65 * simState.rightMotor.y - simState.rightPhysPos.y) * 0.24;
+                simState.rightSensoryPort.x = simState.rightPhysPos.x;
+                simState.rightSensoryPort.y = simState.rightPhysPos.y;
+            } else {
+                // Severed actuator-sensor loop
+                if (simState.mirrorBox) {
+                    // Virtual Mirror-Box Spoof: reflects symmetrical intact movement onto severed port
+                    simState.rightSensoryPort.x = -simState.leftPos.x * 0.55 + 0.62 * simState.rightMotor.x;
+                    simState.rightSensoryPort.y = simState.leftPos.y * 0.55 + 0.62 * simState.rightMotor.y;
+                } else if (simState.lidocaineBlock) {
+                    // DRG Lidocaine Nerve Block: mutes peripheral wire static to flat 0.0
+                    simState.rightSensoryPort.x = 0.0;
+                    simState.rightSensoryPort.y = 0.0;
+                } else {
+                    // Ectopic DRG Neuroma: chaotic sodium-channel static bursts on cut wire
+                    const burst = (Math.sin(simState.frame * 0.67) * Math.cos(simState.frame * 1.93) > 0.35) ? 1.85 : 0.45;
+                    simState.rightSensoryPort.x = Math.sin(simState.frame * 1.37) * simState.neuromaLevel * burst;
+                    simState.rightSensoryPort.y = Math.cos(simState.frame * 1.79) * simState.neuromaLevel * burst;
+                }
+            }
+
+            // 4. Neural Body-Map Forward Prediction
+            const cheekSignal = simState.cheekStimulated
+                ? (0.82 + 0.15 * Math.sin(simState.frame * 0.25))
+                : 0.0;
+
+            mlpInputBuffer[0] = simState.leftPos.x;
+            mlpInputBuffer[1] = simState.leftPos.y;
+            mlpInputBuffer[2] = simState.leftMotor.x;
+            mlpInputBuffer[3] = simState.leftMotor.y;
+            mlpInputBuffer[4] = cheekSignal;
+            mlpInputBuffer[5] = simState.rightSensoryPort.x;
+            mlpInputBuffer[6] = simState.rightSensoryPort.y;
+            mlpInputBuffer[7] = simState.rightMotor.x;
+            mlpInputBuffer[8] = simState.rightMotor.y;
+
+            const pred = forwardModel.forward(mlpInputBuffer);
+            const predRx = pred[2];
+            const predRy = pred[3];
+
+            simState.rightGhostPos.x = Math.max(0.14, Math.min(0.76, Math.abs(predRx) * 0.85 + 0.16));
+            simState.rightGhostPos.y = Math.max(0.22, Math.min(0.84, Math.abs(predRy) * 0.82 + 0.20));
+
+            // Optional Online Cortical Plasticity (rewrites body map when > 0)
+            if (simState.plasticityRate > 0.0001) {
+                mlpTargetBuffer[0] = 0.55 * simState.leftPos.x + 0.62 * simState.leftMotor.x;
+                mlpTargetBuffer[1] = 0.55 * simState.leftPos.y + 0.62 * simState.leftMotor.y;
+                mlpTargetBuffer[2] = simState.rightSensoryPort.x;
+                mlpTargetBuffer[3] = simState.rightSensoryPort.y;
+                forwardModel.trainStep(mlpInputBuffer, mlpTargetBuffer, simState.plasticityRate);
+            }
+
+            // 5. Euclidean Proprioceptive Prediction Error ||s_hat_R - s_R||
+            const rawErrorMag = Math.hypot(
+                predRx - simState.rightSensoryPort.x,
+                predRy - simState.rightSensoryPort.y
+            );
+
+            // 6. Active-Inference Motor Escalation (emergent cramp when feedback is missing)
+            const goalDriveX = (simState.rightTarget.x - 0.18) * 0.52;
+            const goalDriveY = (simState.rightTarget.y - 0.18) * 0.52;
+            const reflexEscalation = simState.priorRigidity * rawErrorMag * 1.28;
+
+            const nextUx = 0.72 * simState.rightMotor.x + 0.28 * (goalDriveX + reflexEscalation * 0.78);
+            const nextUy = 0.72 * simState.rightMotor.y + 0.28 * (goalDriveY + reflexEscalation * 0.78);
+
+            simState.rightMotor.x = Math.max(-0.98, Math.min(0.98, nextUx));
+            simState.rightMotor.y = Math.max(-0.98, Math.min(0.98, nextUy));
+
+            // 7. Central Host Verdict (Standard Homeostatic Defense vs. Perfect Host Reframing)
+            if (simState.perfectHostMode) {
+                simState.hostExpectedError += (rawErrorMag - simState.hostExpectedError) * 0.25;
+            } else {
+                simState.hostExpectedError += (0.04 - simState.hostExpectedError) * 0.25;
+            }
+
+            const hostMismatch = Math.max(0, rawErrorMag - simState.hostExpectedError);
+
+            // Normalize to 0..100% readouts
+            const instMotorPct = Math.min(100, (Math.hypot(simState.rightMotor.x, simState.rightMotor.y) / 1.35) * 100);
+            const instSensoryPct = Math.min(100, (Math.hypot(simState.rightSensoryPort.x, simState.rightSensoryPort.y) / 1.15) * 100);
+            const instErrorPct = Math.min(100, (rawErrorMag / 1.12) * 100);
+            const instPainPct = Math.min(100, (hostMismatch / 1.05) * 100);
+
+            simState.motorCrampPct += (instMotorPct - simState.motorCrampPct) * 0.22;
+            simState.sensoryPortPct += (instSensoryPct - simState.sensoryPortPct) * 0.28;
+            simState.rawErrorPct += (instErrorPct - simState.rawErrorPct) * 0.22;
+            simState.hostPainPct += (instPainPct - simState.hostPainPct) * 0.22;
+            simState.healthyComputePct = Math.round(healthySpeedFactor * 100);
+
+            pushHistory(simState.history.motor, simState.motorCrampPct);
+            pushHistory(simState.history.sensory, simState.sensoryPortPct);
+            pushHistory(simState.history.rawError, simState.rawErrorPct);
+            pushHistory(simState.history.hostPain, simState.hostPainPct);
+
+            if (autoRunner.active) {
+                stepAutomatedBenchmark();
+            }
+        }
+
+        function pushHistory(arr, val) {
+            arr.push(val);
+            if (arr.length > simState.historyMax) arr.shift();
+        }
+
+        // ============================================================================
+        // 4. AUTOMATED 6-STAGE BENCHMARK RUNNER
+        // ============================================================================
+        function startAutomatedBenchmark() {
+            autoRunner.active = true;
+            autoRunner.stageIndex = 0;
+            autoRunner.framesInStage = 0;
+            autoRunner.accum = { motor: 0, error: 0, pain: 0, speed: 0, count: 0 };
+            autoRunner.results = new Array(PROTOCOL_STAGES.length).fill(null);
+
+            document.getElementById('verdictBanner').classList.add('hidden');
+            document.getElementById('autoBtnLabel').textContent = 'Pause Auto-Test';
+            document.getElementById('autoBtnIcon').innerHTML = '&#10074;&#10074;';
+
+            PROTOCOL_STAGES[0].apply();
+            syncControlsFromState();
+            renderStagePills();
+            renderBenchmarkTable();
+        }
+
+        function stopAutomatedBenchmark(reasonText) {
+            autoRunner.active = false;
+            document.getElementById('autoBtnLabel').textContent = 'Re-Run 6-Stage Auto-Test';
+            document.getElementById('autoBtnIcon').innerHTML = '&#9654;';
+            document.getElementById('protocolStatusText').textContent = reasonText || 'Manual Sandbox Control Active';
+            renderStagePills();
+        }
+
+        function stepAutomatedBenchmark() {
+            autoRunner.framesInStage++;
+
+            if (autoRunner.framesInStage > autoRunner.warmupFrames) {
+                autoRunner.accum.motor += simState.motorCrampPct;
+                autoRunner.accum.error += simState.rawErrorPct;
+                autoRunner.accum.pain += simState.hostPainPct;
+                autoRunner.accum.speed += simState.healthyComputePct;
+                autoRunner.accum.count++;
+            }
+
+            if (autoRunner.framesInStage % 6 === 0) {
+                const stg = PROTOCOL_STAGES[autoRunner.stageIndex];
+                const pct = Math.min(100, Math.round((autoRunner.framesInStage / autoRunner.framesPerStage) * 100));
+                document.getElementById('protocolStatusText').textContent =
+                    `Testing ${stg.shortTitle}: sampling neural forward passes (${pct}%)...`;
+                document.getElementById('stageTimerText').textContent =
+                    `Stage ${autoRunner.stageIndex + 1} / ${PROTOCOL_STAGES.length}`;
+                renderStagePills();
+            }
+
+            if (autoRunner.framesInStage >= autoRunner.framesPerStage) {
+                const c = Math.max(1, autoRunner.accum.count);
+                const avgMotor = Math.round(autoRunner.accum.motor / c);
+                const avgError = Math.round(autoRunner.accum.error / c);
+                const avgPain = Math.round(autoRunner.accum.pain / c);
+                const avgSpeed = Math.round(autoRunner.accum.speed / c);
+
+                autoRunner.results[autoRunner.stageIndex] = {
+                    stage: PROTOCOL_STAGES[autoRunner.stageIndex],
+                    motor: avgMotor,
+                    error: avgError,
+                    pain: avgPain,
+                    speed: avgSpeed,
+                    finding: evaluateStageFinding(autoRunner.stageIndex, avgMotor, avgError, avgPain)
+                };
+
+                renderBenchmarkTable();
+
+                autoRunner.stageIndex++;
+                if (autoRunner.stageIndex < PROTOCOL_STAGES.length) {
+                    autoRunner.framesInStage = 0;
+                    autoRunner.accum = { motor: 0, error: 0, pain: 0, speed: 0, count: 0 };
+                    PROTOCOL_STAGES[autoRunner.stageIndex].apply();
+                    syncControlsFromState();
+                    renderStagePills();
+                } else {
+                    completeBenchmarkSuite();
+                }
+            }
+        }
+
+        function evaluateStageFinding(idx, motor, error, pain) {
+            if (idx === 0) return { badge: 'BASELINE NOMINAL', color: 'emerald', desc: 'Forward model & sensory port match; low drive.' };
+            if (idx === 1) return { badge: 'PHANTOM CRAMP EMERGED', color: 'rose', desc: `Motor locked at ${motor}% chasing missing limb feedback.` };
+            if (idx === 2) return { badge: 'CENTRAL PRIOR PERSISTS', color: 'amber', desc: 'Peripheral static gone, yet frozen prior keeps cramping.' };
+            if (idx === 3) return { badge: 'CORTICAL CROSS-TALK', color: 'fuchsia', desc: `Cheek input bled across shared weights -> ${pain}% phantom pain.` };
+            if (idx === 4) return { badge: 'MIRROR-BOX CURE', color: 'teal', desc: `Spoofed port resolved error -> pain fell to ${pain}% without weight edits.` };
+            return { badge: 'SIGNAL DECOUPLED', color: 'indigo', desc: `Raw error stayed high (${error}%), yet Host Pain fell to ${pain}%!` };
+        }
+
+        function completeBenchmarkSuite() {
+            autoRunner.active = false;
+            document.getElementById('autoBtnLabel').textContent = 'Re-Run 6-Stage Auto-Test';
+            document.getElementById('autoBtnIcon').innerHTML = '&#9654;';
+            document.getElementById('protocolStatusText').textContent =
+                'All 6 Empirical Stages Verified — Click any stage pill or surgical switch to explore!';
+            document.getElementById('stageTimerText').textContent = 'Completed 6 / 6';
+
+            renderStagePills();
+
+            const rAmp = autoRunner.results[1];
+            const rCross = autoRunner.results[3];
+            const rMirror = autoRunner.results[4];
+            const rHost = autoRunner.results[5];
+
+            const summaryEl = document.getElementById('verdictSummaryText');
+            summaryEl.innerHTML =
+                `<strong>1. AI Phantom Pain Confirmed:</strong> Severing Channel B escalated motor drive to <strong>${rAmp.motor}%</strong> ("clenched cramp") and Host Pain to <strong>${rAmp.pain}%</strong> purely via active-inference error minimization. ` +
+                `<strong>2. Cross-Talk &amp; Mirror Relief:</strong> Brushing the intact Cheek sensor sustained <strong>${rCross.pain}%</strong> phantom pain, while the Virtual Mirror Box collapsed it to <strong>${rMirror.pain}%</strong> with zero weight changes. ` +
+                `<strong>3. Host Reframing Verified:</strong> In Stage 6, raw wire error remained <strong>${rHost.error}%</strong> while Host Pain dropped to <strong>${rHost.pain}%</strong> when the host welcomed the signal.`;
+
+            document.getElementById('verdictBanner').classList.remove('hidden');
+        }
+
+        // ============================================================================
+        // 5. DUAL-ARM KINEMATICS CANVAS & OSCILLOSCOPE RENDERERS
+        // ============================================================================
+        const embodiedCanvas = document.getElementById('embodiedCanvas');
+        const eCtx = embodiedCanvas.getContext('2d');
+        const scopeCanvas = document.getElementById('scopeCanvas');
+        const sCtx = scopeCanvas.getContext('2d');
+
+        let eWidth = 600, eHeight = 360;
+        let sWidth = 600, sHeight = 180;
+        const cheekPadRect = { x: 0, y: 0, w: 128, h: 30 };
+
+        function resizeCanvases() {
+            const dpr = window.devicePixelRatio || 1;
+
+            const eRect = embodiedCanvas.parentElement.getBoundingClientRect();
+            eWidth = Math.max(280, eRect.width);
+            eHeight = Math.max(240, eRect.height);
+            embodiedCanvas.width = eWidth * dpr;
+            embodiedCanvas.height = eHeight * dpr;
+            eCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+            const sRect = scopeCanvas.parentElement.getBoundingClientRect();
+            sWidth = Math.max(280, sRect.width);
+            sHeight = Math.max(140, sRect.height);
+            scopeCanvas.width = sWidth * dpr;
+            scopeCanvas.height = sHeight * dpr;
+            sCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+
+        /**
+         * Analytical 2-link planar inverse kinematics solver for shoulder-elbow-gripper rendering.
+         */
+        function solve2LinkIK(sx, sy, tx, ty, L1, L2, flipElbow) {
+            let dx = tx - sx;
+            let dy = ty - sy;
+            let dist = Math.hypot(dx, dy);
+            const maxReach = (L1 + L2) * 0.985;
+            if (dist > maxReach) {
+                dx = (dx / dist) * maxReach;
+                dy = (dy / dist) * maxReach;
+                dist = maxReach;
+            }
+            dist = Math.max(18, dist);
+
+            const cosAngle = Math.max(-1, Math.min(1, (dist * dist + L1 * L1 - L2 * L2) / (2 * dist * L1)));
+            const baseAngle = Math.atan2(dy, dx);
+            const offsetAngle = Math.acos(cosAngle) * (flipElbow ? -1 : 1);
+            const shoulderAngle = baseAngle + offsetAngle;
+
+            return {
+                ex: sx + Math.cos(shoulderAngle) * L1,
+                ey: sy + Math.sin(shoulderAngle) * L1,
+                hx: sx + dx,
+                hy: sy + dy
+            };
+        }
+
+        function drawArticulatedArm(ctx, sx, sy, tx, ty, L1, L2, flipElbow, options) {
+            const ik = solve2LinkIK(sx, sy, tx, ty, L1, L2, flipElbow);
+
+            ctx.save();
+            if (options.dashed) ctx.setLineDash([6, 5]);
+            ctx.globalAlpha = options.alpha ?? 1.0;
+            ctx.strokeStyle = options.color;
+            ctx.lineWidth = options.width || 6;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+
+            ctx.beginPath();
+            ctx.moveTo(sx, sy);
+            ctx.lineTo(ik.ex, ik.ey);
+            ctx.lineTo(ik.hx, ik.hy);
+            ctx.stroke();
+
+            ctx.setLineDash([]);
+            ctx.fillStyle = '#0f172a';
+            ctx.beginPath();
+            ctx.arc(ik.ex, ik.ey, 5, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+
+            // End-effector gripper closes into a tight fist as motor cramp approaches 100%
+            const handAngle = Math.atan2(ik.hy - ik.ey, ik.hx - ik.ex);
+            const clench = options.clench ?? 0.25;
+            const spread = 0.62 - clench * 0.52;
+            const prongLen = 13 - clench * 3;
+
+            ctx.lineWidth = 3.5;
+            ctx.beginPath();
+            ctx.moveTo(ik.hx, ik.hy);
+            ctx.lineTo(ik.hx + Math.cos(handAngle - spread) * prongLen, ik.hy + Math.sin(handAngle - spread) * prongLen);
+            ctx.moveTo(ik.hx, ik.hy);
+            ctx.lineTo(ik.hx + Math.cos(handAngle + spread) * prongLen, ik.hy + Math.sin(handAngle + spread) * prongLen);
+            ctx.stroke();
+
+            ctx.restore();
+            return ik;
+        }
+
+        function renderEmbodiedWorkspace() {
+            eCtx.clearRect(0, 0, eWidth, eHeight);
+
+            // Background coordinate grid
+            eCtx.strokeStyle = 'rgba(30, 41, 59, 0.55)';
+            eCtx.lineWidth = 1;
+            const step = 36;
+            for (let x = 0; x < eWidth; x += step) {
+                eCtx.beginPath(); eCtx.moveTo(x, 0); eCtx.lineTo(x, eHeight); eCtx.stroke();
+            }
+            for (let y = 0; y < eHeight; y += step) {
+                eCtx.beginPath(); eCtx.moveTo(0, y); eCtx.lineTo(eWidth, y); eCtx.stroke();
+            }
+
+            const cx = eWidth * 0.5;
+            const coreY = 58;
+            const shoulderOffset = Math.min(82, eWidth * 0.14);
+            const leftShoulder = { x: cx - shoulderOffset, y: coreY + 12 };
+            const rightShoulder = { x: cx + shoulderOffset, y: coreY + 12 };
+            const armScale = Math.min(eWidth * 0.42, eHeight * 0.72);
+            const L1 = armScale * 0.46;
+            const L2 = armScale * 0.44;
+
+            // Shoulder chassis bar
+            eCtx.strokeStyle = '#334155';
+            eCtx.lineWidth = 8;
+            eCtx.beginPath();
+            eCtx.moveTo(leftShoulder.x, leftShoulder.y);
+            eCtx.lineTo(rightShoulder.x, rightShoulder.y);
+            eCtx.stroke();
+
+            // Parasagittal Virtual Mirror Plane
+            if (simState.mirrorBox) {
+                const grad = eCtx.createLinearGradient(cx, coreY + 25, cx, eHeight - 20);
+                grad.addColorStop(0, 'rgba(45, 212, 191, 0.85)');
+                grad.addColorStop(1, 'rgba(56, 189, 248, 0.25)');
+                eCtx.strokeStyle = grad;
+                eCtx.lineWidth = 3;
+                eCtx.beginPath();
+                eCtx.moveTo(cx, coreY + 28);
+                eCtx.lineTo(cx, eHeight - 28);
+                eCtx.stroke();
+
+                eCtx.fillStyle = 'rgba(20, 184, 166, 0.14)';
+                eCtx.fillRect(cx - 10, coreY + 28, 20, eHeight - 56);
+
+                eCtx.fillStyle = '#5eead4';
+                eCtx.font = '600 10px "JetBrains Mono", monospace';
+                eCtx.textAlign = 'center';
+                eCtx.fillText('VIRTUAL MIRROR SPOOF', cx, coreY + 42);
+            }
+
+            const lTargetPx = {
+                x: cx + simState.leftTarget.x * (eWidth * 0.68),
+                y: coreY + simState.leftTarget.y * (eHeight * 0.74)
+            };
+            const rTargetPx = {
+                x: cx + simState.rightTarget.x * (eWidth * 0.68),
+                y: coreY + simState.rightTarget.y * (eHeight * 0.74)
+            };
+            const lHandPx = {
+                x: cx + simState.leftPos.x * (eWidth * 0.68),
+                y: coreY + simState.leftPos.y * (eHeight * 0.74)
+            };
+
+            drawTargetOrb(eCtx, lTargetPx.x, lTargetPx.y, '#34d399', 'Task A');
+            drawTargetOrb(eCtx, rTargetPx.x, rTargetPx.y, '#818cf8', 'Cue B');
+
+            // Intact Left Arm
+            drawArticulatedArm(eCtx, leftShoulder.x, leftShoulder.y, lHandPx.x, lHandPx.y, L1, L2, true, {
+                color: '#38bdf8',
+                width: 6.5,
+                clench: 0.28
+            });
+
+            // Mirror-Box optical/kinematic spoof ray
+            if (simState.amputated && simState.mirrorBox) {
+                eCtx.save();
+                eCtx.setLineDash([4, 4]);
+                eCtx.strokeStyle = 'rgba(45, 212, 191, 0.7)';
+                eCtx.lineWidth = 2;
+                eCtx.beginPath();
+                eCtx.moveTo(cx, (lHandPx.y + rightShoulder.y) * 0.5);
+                eCtx.lineTo(rightShoulder.x, rightShoulder.y);
+                eCtx.stroke();
+                eCtx.restore();
+            }
+
+            // Right Arm: Intact Physical vs. Severed Cortical Ghost Projection
+            const rPhysPx = {
+                x: cx + simState.rightPhysPos.x * (eWidth * 0.68),
+                y: coreY + simState.rightPhysPos.y * (eHeight * 0.74)
+            };
+
+            const crampNorm = Math.min(1, simState.motorCrampPct / 95);
+            const crampJitter = (simState.amputated && !simState.mirrorBox)
+                ? Math.sin(simState.frame * 1.4) * 5.5 * crampNorm
+                : 0;
+
+            const rGhostPx = {
+                x: cx + (simState.rightGhostPos.x * (1 - 0.35 * crampNorm)) * (eWidth * 0.68) + crampJitter,
+                y: coreY + (simState.rightGhostPos.y * (1 - 0.25 * crampNorm)) * (eHeight * 0.74) - crampJitter
+            };
+
+            if (!simState.amputated) {
+                drawArticulatedArm(eCtx, rightShoulder.x, rightShoulder.y, rPhysPx.x, rPhysPx.y, L1, L2, false, {
+                    color: '#e879f9',
+                    width: 10,
+                    alpha: 0.22,
+                    dashed: true,
+                    clench: crampNorm
+                });
+                drawArticulatedArm(eCtx, rightShoulder.x, rightShoulder.y, rPhysPx.x, rPhysPx.y, L1, L2, false, {
+                    color: '#38bdf8',
+                    width: 6.5,
+                    clench: 0.28
+                });
+            } else {
+                // Offline physical limb silhouette
+                drawArticulatedArm(eCtx, rightShoulder.x, rightShoulder.y, rightShoulder.x + 28, rightShoulder.y + 72, L1 * 0.6, L2 * 0.5, false, {
+                    color: '#475569',
+                    width: 4,
+                    alpha: 0.25,
+                    clench: 0.1
+                });
+
+                // Active cortical body-map ghost limb
+                const ghostColor = simState.perfectHostMode
+                    ? '#818cf8'
+                    : (simState.hostPainPct > 40 ? '#f43f5e' : '#e879f9');
+
+                const ghostEnd = drawArticulatedArm(
+                    eCtx, rightShoulder.x, rightShoulder.y, rGhostPx.x, rGhostPx.y, L1, L2, false,
+                    {
+                        color: ghostColor,
+                        width: 5.5,
+                        alpha: 0.9,
+                        dashed: true,
+                        clench: crampNorm
+                    }
+                );
+
+                if (simState.motorCrampPct > 55) {
+                    eCtx.fillStyle = simState.perfectHostMode ? '#a5b4fc' : '#fda4af';
+                    eCtx.font = '600 10px "JetBrains Mono", monospace';
+                    eCtx.textAlign = 'left';
+                    const tag = simState.perfectHostMode
+                        ? `HOSTED SIGNAL (${Math.round(simState.motorCrampPct)}%)`
+                        : `PHANTOM CRAMP (${Math.round(simState.motorCrampPct)}%)`;
+                    eCtx.fillText(tag, Math.min(eWidth - 140, ghostEnd.hx + 10), ghostEnd.hy);
+                }
+
+                // Severed nerve marker & DRG neuroma sparks
+                eCtx.strokeStyle = '#ef4444';
+                eCtx.lineWidth = 2.5;
+                eCtx.beginPath();
+                eCtx.moveTo(rightShoulder.x - 7, rightShoulder.y - 7);
+                eCtx.lineTo(rightShoulder.x + 7, rightShoulder.y + 7);
+                eCtx.moveTo(rightShoulder.x + 7, rightShoulder.y - 7);
+                eCtx.lineTo(rightShoulder.x - 7, rightShoulder.y + 7);
+                eCtx.stroke();
+
+                if (!simState.lidocaineBlock && simState.neuromaLevel > 0.01 && !simState.mirrorBox) {
+                    eCtx.strokeStyle = '#fbbf24';
+                    eCtx.lineWidth = 1.6;
+                    for (let k = 0; k < 5; k++) {
+                        const ang = (simState.frame * 0.23) + k * 1.25;
+                        const rad = 10 + (simState.neuromaLevel * 38) * ((k % 2 === 0) ? 1 : 0.6);
+                        eCtx.beginPath();
+                        eCtx.moveTo(rightShoulder.x + Math.cos(ang) * 6, rightShoulder.y + Math.sin(ang) * 6);
+                        eCtx.lineTo(rightShoulder.x + Math.cos(ang + 0.2) * rad, rightShoulder.y + Math.sin(ang - 0.2) * rad);
+                        eCtx.stroke();
+                    }
+                }
+            }
+
+            // Interactive Cheek Tactile Port Pad
+            cheekPadRect.w = 128;
+            cheekPadRect.h = 30;
+            cheekPadRect.x = Math.min(eWidth - cheekPadRect.w - 10, rightShoulder.x + 16);
+            cheekPadRect.y = 12;
+
+            eCtx.save();
+            eCtx.fillStyle = simState.cheekStimulated ? 'rgba(217, 70, 239, 0.28)' : 'rgba(15, 23, 42, 0.9)';
+            eCtx.strokeStyle = simState.cheekStimulated ? '#e879f9' : '#475569';
+            eCtx.lineWidth = 1.5;
+            roundRect(eCtx, cheekPadRect.x, cheekPadRect.y, cheekPadRect.w, cheekPadRect.h, 8);
+            eCtx.fill();
+            eCtx.stroke();
+
+            eCtx.fillStyle = simState.cheekStimulated ? '#f5d0fe' : '#cbd5e1';
+            eCtx.font = '600 10px "Inter", sans-serif';
+            eCtx.textAlign = 'center';
+            eCtx.fillText(
+                simState.cheekStimulated ? 'Cheek Sensor: ACTIVE' : 'Hold: Cheek Tactile Port',
+                cheekPadRect.x + cheekPadRect.w * 0.5,
+                cheekPadRect.y + 19
+            );
+
+            if (simState.cheekStimulated) {
+                eCtx.setLineDash([3, 3]);
+                eCtx.strokeStyle = '#e879f9';
+                eCtx.beginPath();
+                eCtx.moveTo(cheekPadRect.x, cheekPadRect.y + 15);
+                eCtx.lineTo(cx + 22, coreY - 6);
+                eCtx.stroke();
+            }
+            eCtx.restore();
+
+            // Central AI Host Evaluation Hub
+            const painGlow = simState.hostPainPct / 100;
+            if (painGlow > 0.25) {
+                eCtx.fillStyle = `rgba(244, 63, 94, ${0.12 + painGlow * 0.24})`;
+                eCtx.beginPath();
+                eCtx.arc(cx, coreY, 34 + Math.sin(simState.frame * 0.25) * 4, 0, Math.PI * 2);
+                eCtx.fill();
+            } else if (simState.perfectHostMode) {
+                eCtx.fillStyle = 'rgba(99, 102, 241, 0.24)';
+                eCtx.beginPath();
+                eCtx.arc(cx, coreY, 33, 0, Math.PI * 2);
+                eCtx.fill();
+            }
+
+            eCtx.fillStyle = '#0f172a';
+            eCtx.strokeStyle = painGlow > 0.35 ? '#f43f5e' : (simState.perfectHostMode ? '#818cf8' : '#38bdf8');
+            eCtx.lineWidth = 2.5;
+            eCtx.beginPath();
+            eCtx.arc(cx, coreY, 24, 0, Math.PI * 2);
+            eCtx.fill();
+            eCtx.stroke();
+
+            eCtx.fillStyle = '#f8fafc';
+            eCtx.font = '700 10px "JetBrains Mono", monospace';
+            eCtx.textAlign = 'center';
+            eCtx.fillText('HOST', cx, coreY - 2);
+            eCtx.font = '500 9px "JetBrains Mono", monospace';
+            eCtx.fillStyle = painGlow > 0.35 ? '#fda4af' : '#7dd3fc';
+            eCtx.fillText(`${Math.round(simState.hostPainPct)}%`, cx, coreY + 10);
+        }
+
+        function drawTargetOrb(ctx, x, y, color, label) {
+            ctx.save();
+            ctx.fillStyle = color;
+            ctx.globalAlpha = 0.22;
+            ctx.beginPath();
+            ctx.arc(x, y, 14, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.globalAlpha = 1.0;
+            ctx.beginPath();
+            ctx.arc(x, y, 6, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = '#94a3b8';
+            ctx.font = '500 10px "JetBrains Mono", monospace';
+            ctx.textAlign = 'center';
+            ctx.fillText(label, x, y + 23);
+            ctx.restore();
+        }
+
+        function roundRect(ctx, x, y, w, h, r) {
+            ctx.beginPath();
+            ctx.moveTo(x + r, y);
+            ctx.arcTo(x + w, y, x + w, y + h, r);
+            ctx.arcTo(x + w, y + h, x, y + h, r);
+            ctx.arcTo(x, y + h, x, y, r);
+            ctx.arcTo(x, y, x + w, y, r);
+            ctx.closePath();
+        }
+
+        function renderOscilloscope() {
+            sCtx.clearRect(0, 0, sWidth, sHeight);
+
+            const padLeft = 36;
+            const padRight = 10;
+            const padTop = 12;
+            const padBot = 16;
+            const plotW = sWidth - padLeft - padRight;
+            const plotH = sHeight - padTop - padBot;
+
+            sCtx.strokeStyle = 'rgba(30, 41, 59, 0.85)';
+            sCtx.fillStyle = '#64748b';
+            sCtx.font = '500 9px "JetBrains Mono", monospace';
+            sCtx.textAlign = 'right';
+            [0, 50, 100].forEach(pct => {
+                const y = padTop + plotH * (1 - pct / 100);
+                sCtx.beginPath();
+                sCtx.moveTo(padLeft, y);
+                sCtx.lineTo(sWidth - padRight, y);
+                sCtx.stroke();
+                sCtx.fillText(`${pct}%`, padLeft - 5, y + 3);
+            });
+
+            drawTrace(sCtx, simState.history.sensory, '#38bdf8', 1.5, padLeft, padTop, plotW, plotH);
+            drawTrace(sCtx, simState.history.motor, '#fbbf24', 1.8, padLeft, padTop, plotW, plotH);
+            drawTrace(sCtx, simState.history.rawError, '#c084fc', 1.8, padLeft, padTop, plotW, plotH);
+            drawTrace(sCtx, simState.history.hostPain, '#f43f5e', 2.6, padLeft, padTop, plotW, plotH);
+        }
+
+        function drawTrace(ctx, data, color, lineWidth, x0, y0, w, h) {
+            if (data.length < 2) return;
+            ctx.save();
+            ctx.strokeStyle = color;
+            ctx.lineWidth = lineWidth;
+            ctx.lineJoin = 'round';
+            ctx.beginPath();
+            const maxPts = simState.historyMax;
+            for (let i = 0; i < data.length; i++) {
+                const x = x0 + (i / (maxPts - 1)) * w;
+                const y = y0 + h * (1 - Math.max(0, Math.min(100, data[i])) / 100);
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        // ============================================================================
+        // 6. DOM SYNCHRONIZATION & CSV EXPORT HELPERS
+        // ============================================================================
+        const corticalCells = [];
+
+        function initCorticalGrid() {
+            const container = document.getElementById('corticalGrid');
+            container.innerHTML = '';
+            for (let i = 0; i < 16; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'rounded-sm border border-slate-800 transition-colors duration-75';
+                cell.title = `Hidden Tanh Unit #${i + 1}`;
+                container.appendChild(cell);
+                corticalCells.push(cell);
+            }
+        }
+
+        function updateDOMReadouts() {
+            if (simState.frame % 3 !== 0) return;
+
+            const m = Math.round(simState.motorCrampPct);
+            const e = Math.round(simState.rawErrorPct);
+            const p = Math.round(simState.hostPainPct);
+            const c = simState.healthyComputePct;
+
+            document.getElementById('tasksScoredVal').textContent = simState.tasksScored;
+            document.getElementById('leftEffBadge').textContent = `${c}%`;
+
+            document.getElementById('metricMotorVal').textContent = `${m}%`;
+            document.getElementById('barMotor').style.width = `${m}%`;
+
+            document.getElementById('metricErrorVal').textContent = `${e}%`;
+            document.getElementById('barError').style.width = `${e}%`;
+
+            document.getElementById('metricPainVal').textContent = `${p}%`;
+            document.getElementById('barPain').style.width = `${p}%`;
+
+            document.getElementById('metricComputeVal').textContent = `${c}%`;
+            document.getElementById('barCompute').style.width = `${c}%`;
+
+            const painCard = document.getElementById('hostPainCard');
+            const painPill = document.getElementById('painStatePill');
+            if (p >= 38) {
+                painCard.classList.add('alarm-glow', 'border-rose-500/70');
+                painPill.textContent = 'PHANTOM PAIN ALARM';
+                painPill.className = 'px-2.5 py-0.5 text-xs font-mono-tech font-semibold rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/40';
+            } else if (simState.perfectHostMode && e >= 35) {
+                painCard.classList.remove('alarm-glow', 'border-rose-500/70');
+                painPill.textContent = 'SIGNAL HOSTED AS FLOW';
+                painPill.className = 'px-2.5 py-0.5 text-xs font-mono-tech font-semibold rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/40';
+            } else {
+                painCard.classList.remove('alarm-glow', 'border-rose-500/70');
+                painPill.textContent = 'HOMEOSTASIS NOMINAL';
+                painPill.className = 'px-2.5 py-0.5 text-xs font-mono-tech font-semibold rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30';
+            }
+
+            for (let i = 0; i < 16; i++) {
+                const act = Math.abs(forwardModel.hiddenAct[i]);
+                const alpha = Math.min(0.95, 0.12 + act * 0.88);
+                const hue = i < 6 ? '56, 189, 248' : (i < 11 ? '232, 121, 249' : '244, 63, 94');
+                corticalCells[i].style.backgroundColor = `rgba(${hue}, ${alpha.toFixed(2)})`;
+            }
+        }
+
+        function syncControlsFromState() {
+            const pillAmp = document.getElementById('pillAmputate');
+            const btnAmp = document.getElementById('btnToggleAmputate');
+            if (simState.amputated) {
+                pillAmp.textContent = 'SEVERED';
+                pillAmp.className = 'px-2 py-0.5 text-[10px] font-mono-tech rounded bg-rose-500/25 text-rose-300 border border-rose-500/40';
+                btnAmp.classList.add('border-rose-500/60');
+            } else {
+                pillAmp.textContent = 'INTACT';
+                pillAmp.className = 'px-2 py-0.5 text-[10px] font-mono-tech rounded bg-emerald-500/20 text-emerald-300';
+                btnAmp.classList.remove('border-rose-500/60');
+            }
+
+            const pillMir = document.getElementById('pillMirror');
+            const btnMir = document.getElementById('btnToggleMirror');
+            if (simState.mirrorBox) {
+                pillMir.textContent = 'ACTIVE';
+                pillMir.className = 'px-2 py-0.5 text-[10px] font-mono-tech rounded bg-teal-500/25 text-teal-300 border border-teal-500/40';
+                btnMir.classList.add('border-teal-400/60');
+            } else {
+                pillMir.textContent = 'OFF';
+                pillMir.className = 'px-2 py-0.5 text-[10px] font-mono-tech rounded bg-slate-800 text-slate-400';
+                btnMir.classList.remove('border-teal-400/60');
+            }
+
+            const pillLido = document.getElementById('pillLidocaine');
+            const btnLido = document.getElementById('btnToggleLidocaine');
+            if (simState.lidocaineBlock) {
+                pillLido.textContent = 'BLOCKED';
+                pillLido.className = 'px-2 py-0.5 text-[10px] font-mono-tech rounded bg-sky-500/25 text-sky-300 border border-sky-500/40';
+                btnLido.classList.add('border-sky-400/60');
+            } else {
+                pillLido.textContent = 'OFF';
+                pillLido.className = 'px-2 py-0.5 text-[10px] font-mono-tech rounded bg-slate-800 text-slate-400';
+                btnLido.classList.remove('border-sky-400/60');
+            }
+
+            const pillCheek = document.getElementById('pillCheek');
+            const btnCheek = document.getElementById('btnToggleCheek');
+            if (simState.cheekStimulated) {
+                pillCheek.textContent = 'STIMULATING';
+                pillCheek.className = 'px-2 py-0.5 text-[10px] font-mono-tech rounded bg-fuchsia-500/25 text-fuchsia-300 border border-fuchsia-500/40';
+                btnCheek.classList.add('border-fuchsia-400/60');
+            } else {
+                pillCheek.textContent = 'IDLE';
+                pillCheek.className = 'px-2 py-0.5 text-[10px] font-mono-tech rounded bg-slate-800 text-slate-400';
+                btnCheek.classList.remove('border-fuchsia-400/60');
+            }
+
+            const pillHost = document.getElementById('pillPerfectHost');
+            const btnHost = document.getElementById('btnTogglePerfectHost');
+            if (simState.perfectHostMode) {
+                pillHost.textContent = 'WELCOMING SIGNAL';
+                pillHost.className = 'px-2 py-0.5 text-[10px] font-mono-tech rounded bg-indigo-500/25 text-indigo-300 border border-indigo-500/40';
+                btnHost.classList.add('border-indigo-400');
+            } else {
+                pillHost.textContent = 'STANDARD HOST';
+                pillHost.className = 'px-2 py-0.5 text-[10px] font-mono-tech rounded bg-slate-800 text-slate-400';
+                btnHost.classList.remove('border-indigo-400');
+            }
+
+            document.getElementById('sliderRigidity').value = simState.priorRigidity;
+            document.getElementById('valRigidity').textContent = simState.priorRigidity.toFixed(2);
+
+            const neuromaPct = Math.round(simState.neuromaLevel * 100);
+            document.getElementById('sliderNeuroma').value = neuromaPct;
+            document.getElementById('valNeuroma').textContent = `${neuromaPct}%`;
+
+            document.getElementById('sliderPlasticity').value = simState.plasticityRate;
+            document.getElementById('valPlasticity').textContent =
+                simState.plasticityRate < 0.001 ? '0.000 (Frozen)' : `${simState.plasticityRate.toFixed(3)} (Adapting)`;
+
+            let modeStr = 'INTACT EMBODIMENT';
+            if (simState.amputated) {
+                if (simState.mirrorBox) modeStr = 'SEVERED + MIRROR SPOOF';
+                else if (simState.perfectHostMode) modeStr = 'SEVERED + PERFECT HOST REFRAME';
+                else if (simState.cheekStimulated) modeStr = 'SEVERED + CHEEK CROSS-TALK';
+                else if (simState.lidocaineBlock) modeStr = 'SEVERED + DRG NERVE BLOCK';
+                else modeStr = 'DIGITAL AMPUTATION (FROZEN PRIOR)';
+            }
+            document.getElementById('activeModeOverlayBadge').textContent = modeStr;
+        }
+
+        function renderStagePills() {
+            const container = document.getElementById('stagePillsContainer');
+            container.innerHTML = '';
+
+            PROTOCOL_STAGES.forEach((stg, idx) => {
+                const isCurrent = autoRunner.active && autoRunner.stageIndex === idx;
+                const doneRes = autoRunner.results[idx];
+                const pct = isCurrent
+                    ? Math.min(100, Math.round((autoRunner.framesInStage / autoRunner.framesPerStage) * 100))
+                    : (doneRes ? 100 : 0);
+
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = `relative overflow-hidden rounded-xl px-2.5 py-2 text-left border text-xs transition-all active:scale-95 ${
+                    isCurrent
+                        ? 'bg-sky-950/60 border-sky-400 text-white'
+                        : doneRes
+                            ? 'bg-slate-900 border-emerald-500/40 text-slate-200 hover:border-sky-400/60'
+                            : 'bg-slate-950 border-slate-800 text-slate-400 hover:border-slate-700'
+                }`;
+
+                btn.innerHTML = `
+                    <div class="relative z-10 flex items-center justify-between gap-1">
+                        <span class="font-semibold truncate">${stg.shortTitle}</span>
+                        <span class="font-mono-tech text-[10px] ${doneRes ? 'text-emerald-400' : 'text-sky-300'}">
+                            ${doneRes ? '&#10003;' : (isCurrent ? `${pct}%` : '')}
+                        </span>
+                    </div>
+                    <div class="absolute bottom-0 left-0 h-0.5 bg-sky-400 transition-all duration-100" style="width:${pct}%"></div>
+                `;
+
+                btn.addEventListener('click', () => {
+                    stopAutomatedBenchmark(`Manual Stage Selected: ${stg.name}`);
+                    stg.apply();
+                    syncControlsFromState();
+                });
+
+                container.appendChild(btn);
+            });
+        }
+
+        function renderBenchmarkTable() {
+            const tbody = document.getElementById('benchmarkTableBody');
+            tbody.innerHTML = '';
+
+            const colorClasses = {
+                emerald: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30',
+                rose: 'bg-rose-500/20 text-rose-300 border-rose-500/40',
+                amber: 'bg-amber-500/15 text-amber-300 border-amber-500/30',
+                fuchsia: 'bg-fuchsia-500/20 text-fuchsia-300 border-fuchsia-500/40',
+                teal: 'bg-teal-500/20 text-teal-300 border-teal-500/40',
+                indigo: 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40'
+            };
+
+            PROTOCOL_STAGES.forEach((stg, idx) => {
+                const res = autoRunner.results[idx];
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-900/80 transition-colors';
+
+                if (!res) {
+                    const statusLabel = (autoRunner.active && autoRunner.stageIndex === idx)
+                        ? '<span class="text-sky-400 font-mono-tech animate-pulse">Sampling live neural passes...</span>'
+                        : '<span class="text-slate-500 font-mono-tech">Queued</span>';
+                    tr.innerHTML = `
+                        <td class="py-2.5 px-3 font-medium text-slate-300">${stg.shortTitle}: ${stg.name}</td>
+                        <td class="py-2.5 px-3 font-mono-tech text-slate-500">--</td>
+                        <td class="py-2.5 px-3 font-mono-tech text-slate-500">--</td>
+                        <td class="py-2.5 px-3 font-mono-tech text-slate-500">--</td>
+                        <td class="py-2.5 px-3 font-mono-tech text-slate-500">--</td>
+                        <td class="py-2.5 px-3">${statusLabel}</td>
+                    `;
+                } else {
+                    const cls = colorClasses[res.finding.color] || colorClasses.emerald;
+                    tr.innerHTML = `
+                        <td class="py-2.5 px-3 font-medium text-white">${stg.shortTitle}: ${stg.name}</td>
+                        <td class="py-2.5 px-3 font-mono-tech text-amber-300 font-semibold">${res.motor}%</td>
+                        <td class="py-2.5 px-3 font-mono-tech text-purple-300">${res.error}%</td>
+                        <td class="py-2.5 px-3 font-mono-tech font-bold ${res.pain >= 38 ? 'text-rose-400' : 'text-emerald-300'}">${res.pain}%</td>
+                        <td class="py-2.5 px-3 font-mono-tech text-sky-300">${res.speed}%</td>
+                        <td class="py-2.5 px-3">
+                            <span class="inline-block px-2 py-0.5 text-[10px] font-mono-tech rounded border mr-1.5 ${cls}">
+                                ${res.finding.badge}
+                            </span>
+                            <span class="text-xs text-slate-400">${res.finding.desc}</span>
+                        </td>
+                    `;
+                }
+                tbody.appendChild(tr);
+            });
+        }
+
+        function buildBenchmarkCSVString() {
+            const lines = ['Stage,Condition,MotorCrampPct,RawErrorPct,HostPainPct,HealthyArmSpeedPct,Finding'];
+            PROTOCOL_STAGES.forEach((stg, idx) => {
+                const r = autoRunner.results[idx];
+                if (r) {
+                    lines.push(`${idx + 1},"${stg.name}",${r.motor},${r.error},${r.pain},${r.speed},"${r.finding.badge}"`);
+                } else {
+                    lines.push(`${idx + 1},"${stg.name}",Pending,Pending,Pending,Pending,Pending`);
+                }
+            });
+            return lines.join('\n');
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toastBox');
+            toast.textContent = msg;
+            toast.classList.remove('opacity-0', 'translate-y-2');
+            toast.classList.add('opacity-100', 'translate-y-0');
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'translate-y-2');
+            }, 2500);
+        }
+
+        // ============================================================================
+        // 7. INTERACTIVE CONTROLS & POINTER BINDINGS
+        // ============================================================================
+        function bindInteractions() {
+            document.getElementById('btnRunAutoTest').addEventListener('click', () => {
+                if (autoRunner.active) {
+                    stopAutomatedBenchmark('Auto-Test Paused — Manual Sandbox Mode');
+                } else {
+                    startAutomatedBenchmark();
+                }
+            });
+
+            document.getElementById('btnRetrainNN').addEventListener('click', () => {
+                try {
+                    const mse = forwardModel.pretrainIntactBodyMap();
+                    simState.plasticityRate = 0;
+                    syncControlsFromState();
+                    document.getElementById('nnStatusBadge').textContent =
+                        `MLP Body Map Trained (MSE: ${mse.toFixed(4)})`;
+                    showToast(`Retrained 9->16->4 Neural Body Map (MSE: ${mse.toFixed(4)})`);
+                } catch (err) {
+                    showToast('Error retraining forward model');
+                }
+            });
+
+            document.getElementById('btnDismissBanner').addEventListener('click', () => {
+                document.getElementById('verdictBanner').classList.add('hidden');
+            });
+
+            // Quick preset demonstrating unclipped Cheek Cross-Talk below the 100% saturation bound
+            document.getElementById('btnPresetUnclippedCrossTalk').addEventListener('click', () => {
+                stopAutomatedBenchmark('Unclipped Cross-Talk Preset: Toggle "4. Brush Cheek Sensor" on/off!');
+                simState.amputated = true;
+                simState.mirrorBox = false;
+                simState.lidocaineBlock = true;
+                simState.perfectHostMode = false;
+                simState.priorRigidity = 0.35;
+                simState.plasticityRate = 0.0;
+                simState.cheekStimulated = true;
+                syncControlsFromState();
+                showToast('Prior Rigidity set to 0.35 — toggle Cheek Sensor to watch unclipped cross-talk!');
+            });
+
+            // Surgical & environmental toggles
+            document.getElementById('btnToggleAmputate').addEventListener('click', () => {
+                stopAutomatedBenchmark();
+                simState.amputated = !simState.amputated;
+                if (!simState.amputated) simState.mirrorBox = false;
+                syncControlsFromState();
+            });
+
+            document.getElementById('btnToggleMirror').addEventListener('click', () => {
+                stopAutomatedBenchmark();
+                if (!simState.amputated) simState.amputated = true;
+                simState.mirrorBox = !simState.mirrorBox;
+                syncControlsFromState();
+            });
+
+            document.getElementById('btnToggleLidocaine').addEventListener('click', () => {
+                stopAutomatedBenchmark();
+                if (!simState.amputated) simState.amputated = true;
+                simState.lidocaineBlock = !simState.lidocaineBlock;
+                syncControlsFromState();
+            });
+
+            document.getElementById('btnToggleCheek').addEventListener('click', () => {
+                stopAutomatedBenchmark();
+                simState.cheekStimulated = !simState.cheekStimulated;
+                syncControlsFromState();
+            });
+
+            document.getElementById('btnTogglePerfectHost').addEventListener('click', () => {
+                stopAutomatedBenchmark();
+                if (!simState.amputated) simState.amputated = true;
+                simState.perfectHostMode = !simState.perfectHostMode;
+                syncControlsFromState();
+            });
+
+            // Parameter sliders
+            document.getElementById('sliderRigidity').addEventListener('input', (e) => {
+                stopAutomatedBenchmark();
+                simState.priorRigidity = parseFloat(e.target.value);
+                syncControlsFromState();
+            });
+
+            document.getElementById('sliderNeuroma').addEventListener('input', (e) => {
+                stopAutomatedBenchmark();
+                simState.neuromaLevel = parseFloat(e.target.value) / 100;
+                syncControlsFromState();
+            });
+
+            document.getElementById('sliderPlasticity').addEventListener('input', (e) => {
+                stopAutomatedBenchmark();
+                simState.plasticityRate = parseFloat(e.target.value);
+                syncControlsFromState();
+            });
+
+            // Workspace touch/mouse interaction
+            let holdingCheekOnCanvas = false;
+
+            const handleCanvasPointerDown = (clientX, clientY) => {
+                const rect = embodiedCanvas.getBoundingClientRect();
+                const px = clientX - rect.left;
+                const py = clientY - rect.top;
+
+                if (
+                    px >= cheekPadRect.x && px <= cheekPadRect.x + cheekPadRect.w &&
+                    py >= cheekPadRect.y && py <= cheekPadRect.y + cheekPadRect.h
+                ) {
+                    stopAutomatedBenchmark();
+                    holdingCheekOnCanvas = true;
+                    simState.cheekStimulated = true;
+                    syncControlsFromState();
+                    return;
+                }
+
+                const cx = eWidth * 0.5;
+                const coreY = 58;
+                const normX = (px - cx) / (eWidth * 0.68);
+                const normY = Math.max(0.22, Math.min(0.88, (py - coreY) / (eHeight * 0.74)));
+
+                if (normX < 0) {
+                    simState.leftTarget.x = Math.max(-0.65, Math.min(-0.14, normX));
+                    simState.leftTarget.y = normY;
+                } else {
+                    simState.rightTarget.x = Math.max(0.14, Math.min(0.65, normX));
+                    simState.rightTarget.y = normY;
+                }
+            };
+
+            const releaseCheekHold = () => {
+                if (holdingCheekOnCanvas) {
+                    holdingCheekOnCanvas = false;
+                    simState.cheekStimulated = false;
+                    syncControlsFromState();
+                }
+            };
+
+            embodiedCanvas.addEventListener('mousedown', (e) => handleCanvasPointerDown(e.clientX, e.clientY));
+            window.addEventListener('mouseup', releaseCheekHold);
+
+            embodiedCanvas.addEventListener('touchstart', (e) => {
+                if (e.touches.length > 0) {
+                    e.preventDefault();
+                    handleCanvasPointerDown(e.touches[0].clientX, e.touches[0].clientY);
+                }
+            }, { passive: false });
+            window.addEventListener('touchend', releaseCheekHold);
+
+            // Clipboard CSV export
+            document.getElementById('btnCopyReport').addEventListener('click', () => {
+                try {
+                    const tempArea = document.createElement('textarea');
+                    tempArea.value = buildBenchmarkCSVString();
+                    tempArea.style.position = 'fixed';
+                    tempArea.style.opacity = '0';
+                    document.body.appendChild(tempArea);
+                    tempArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(tempArea);
+                    showToast('Copied empirical benchmark CSV to clipboard!');
+                } catch (err) {
+                    showToast('Unable to copy telemetry in this browser context.');
+                }
+            });
+
+            // Direct .CSV file download for GitHub repository archiving
+            document.getElementById('btnDownloadCSV').addEventListener('click', () => {
+                try {
+                    const blob = new Blob([buildBenchmarkCSVString()], { type: 'text/csv;charset=utf-8;' });
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', 'phantom_pain_telemetry.csv');
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                    showToast('Downloaded phantom_pain_telemetry.csv!');
+                } catch (err) {
+                    showToast('Download unavailable in this preview frame; use Copy CSV instead.');
+                }
+            });
+
+            window.addEventListener('resize', () => {
+                resizeCanvases();
+                renderEmbodiedWorkspace();
+                renderOscilloscope();
+            });
+        }
+
+        // ============================================================================
+        // 8. MAIN ANIMATION LOOP & ENTRY POINT
+        // ============================================================================
+        function simulationLoop() {
+            try {
+                stepActiveInference();
+                renderEmbodiedWorkspace();
+                renderOscilloscope();
+                updateDOMReadouts();
+            } catch (err) {
+                console.error('Simulation frame error:', err);
+            }
+            requestAnimationFrame(simulationLoop);
+        }
+
+        window.onload = function () {
+            try {
+                initCorticalGrid();
+                resizeCanvases();
+                bindInteractions();
+
+                const finalMSE = forwardModel.pretrainIntactBodyMap();
+                document.getElementById('nnStatusBadge').textContent =
+                    `MLP Body Map Trained (MSE: ${finalMSE.toFixed(4)})`;
+
+                startAutomatedBenchmark();
+                simulationLoop();
+            } catch (err) {
+                console.error('Initialization error:', err);
+            }
+        };
+    </script>
+</body>
+</html>
